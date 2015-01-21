@@ -1,0 +1,10 @@
+# Certificates
+*.cert
+*.pem
+*.pkcs12
+*.p7b
+
+# Trashy Files
+.DS_Store
+*.tmp
+*~
