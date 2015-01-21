@@ -1,0 +1,7 @@
+{
+  "client": {
+    "name": "Annie",
+    "address": "localhost",
+    "subscriptions": [ "none" ]
+  }
+}
