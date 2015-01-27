@@ -1,0 +1,59 @@
+---
+- name: get epel 6
+  yum: name=http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+
+- name: install erlang
+  yum: name=erlang
+  
+- name: install rabbitmq
+  yum: name=http://www.rabbitmq.com/releases/rabbitmq-server/v3.2.1/rabbitmq-server-3.2.1-1.noarch.rpm
+    
+- name: start rabbitmq
+  service: name=rabbitmq-server enabled=true state=started
+  
+- name: rabbitmq config
+  copy: src=rabbitmq/ dest=/etc/rabbitmq/
+  notify:
+  - restart rabbitmq
+
+- name: setup sensu vhost
+  rabbitmq_vhost: name=/sensu state=present
+
+- name: setup sensu user
+  rabbitmq_user: user=sensu
+                 password=password
+                 vhost=/sensu
+                 configure_priv=.*
+                 read_priv=.*
+                 write_priv=.*
+                 state=present
+
+- name: enable rabbitmq web console
+  rabbitmq_plugin: name=rabbitmq_management state=enabled
+
+- name: install redis
+  yum: name=redis
+
+- name: start redis
+  service: name=redis enabled=true state=started
+
+- name: add sensu repo
+  copy: src=yum.repos.d/sensu.repo dest=/etc/yum.repos.d/sensu.repo
+
+- name: install sensu components
+  yum: name={{ item }}
+  with_items:
+    - sensu
+    - uchiwa
+
+- name: sensu server config
+  copy: src=sensu/ dest=/etc/sensu/
+
+- name: start sensu components
+  service: name={{ item }} enabled=true state=started
+  with_items:
+    - sensu-server
+    - sensu-client
+    - uchiwa
+    - sensu-api
+
