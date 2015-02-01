@@ -1,6 +1,10 @@
+# file: roles/common/tasks/main.yml
 ---
 - name: get epel 6
-  yum: name=http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+  yum: name=http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm state=present
 
 - name: ensure libselinux-python is installed
   yum: name=libselinux-python state=present
+
+- name: install jdk6
+  yum: name=java-1.6.0 state=present
