@@ -1,0 +1,10 @@
+# file rundeck.yml
+---
+- hosts: rundecks
+
+  roles:
+    - common
+    - java6
+    - rundeck
+
+  remote_user: root
