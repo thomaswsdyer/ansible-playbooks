@@ -1,3 +1,4 @@
+# file: roles/sensuserver/tasks/main.yml
 ---
 - name: install erlang
   yum: name=erlang
