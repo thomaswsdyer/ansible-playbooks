@@ -1,7 +1,4 @@
 ---
-- name: get epel 6
-  yum: name=http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-
 - name: install erlang
   yum: name=erlang
   
