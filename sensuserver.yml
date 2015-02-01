@@ -1,3 +1,4 @@
+# file: sensuserver.yml
 ---
 - hosts: sensuservers
 
