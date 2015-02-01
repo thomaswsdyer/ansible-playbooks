@@ -1,0 +1,4 @@
+# file: roles/java6/tasks/main.yml
+---
+- name: install java6
+  yum: name=java-1.6.0 state=present
